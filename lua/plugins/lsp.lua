@@ -1,3 +1,6 @@
+-- nvim-cmp: https://github.com/hrsh7th/nvim-cmp
+-- mason:
+-- mason-lspconfig:
 return {
   {
     'VonHeikemen/lsp-zero.nvim',
@@ -20,12 +23,64 @@ return {
       { 'hrsh7th/cmp-buffer' },
     },
     config = function()
-      local cmp = require('cmp')
+      local kind_icons = {
+        Class = " ",
+        Color = " ",
+        Constant = " ",
+        Constructor = " ",
+        Enum = " ",
+        EnumMember = " ",
+        Event = " ",
+        Field = " ",
+        File = " ",
+        Folder = " ",
+        Function = " ",
+        Interface = " ",
+        Keyword = " ",
+        Method = " ",
+        Module = " ",
+        Operator = " ",
+        Property = " ",
+        Reference = " ",
+        Snippet = " ",
+        Struct = " ",
+        Text = " ",
+        TypeParameter = " ",
+        Unit = "󰬂 ",
+        Value = " ",
+        Variable = " ",
+      }
+      local source_names = {
+        nvim_lsp = "(LSP)",
+        emoji = "(Emoji)",
+        path = "(Path)",
+        calc = "(Calc)",
+        cmp_tabnine = "(Tabnine)",
+        vsnip = "(Snippet)",
+        luasnip = "(Snippet)",
+        buffer = "(Buffer)",
+        spell = "(Spell)",
+      }
+      local duplicates = {
+        buffer = 1,
+        path = 1,
+        nvim_lsp = 0,
+        luasnip = 1,
+      }
 
+      local cmp = require('cmp')
       cmp.setup({
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
+        },
+        formatting = {
+          format = function(entry, vim_item)
+            -- vim_item.kind = kind_icons[vim_item.kind]
+            vim_item.menu = source_names[entry.source.name]
+            vim_item.dup = duplicates[entry.source.name] or 0
+            return vim_item
+          end,
         },
         sources = {
           { name = 'nvim_lsp' },
