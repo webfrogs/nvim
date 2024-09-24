@@ -44,6 +44,14 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+-- add underline to cursor line
+-- vim.cmd([[
+--   augroup CustomCursorLine
+--     autocmd!
+--     autocmd ColorScheme * highlight CursorLine gui=underline ctermbg=NONE guibg=NONE
+--   augroup END
+-- ]])
+
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 

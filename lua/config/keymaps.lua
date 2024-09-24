@@ -12,6 +12,7 @@ else
 end
 keymap("n", "<leader>1", ":noh<cr>", opts)
 keymap("n", "<leader>2", ":cclose<cr>", opts)
+keymap("n", "<leader>3", ":tabclose<cr>", opts)
 
 -- System clipboard
 keymap("n", "<leader>y", "\"+y", opts)
