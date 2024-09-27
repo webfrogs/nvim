@@ -1,10 +1,20 @@
+-- https://github.com/nvim-telescope/telescope.nvim
 return {
   {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
+      local actions = require('telescope.actions')
       require('telescope').setup {
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-n>"] = actions.cycle_history_next,
+              ["<C-p>"] = actions.cycle_history_prev,
+            },
+          },
+        },
         extensions = {
           fzf = {
             fuzzy = true,                   -- false will only do exact matching
