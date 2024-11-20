@@ -147,7 +147,8 @@ return {
           "gopls",
           "golangci_lint_ls",
           "clangd",
-          "pylsp",
+          -- "pylsp",
+          "pyright",
           "ts_ls",
         },
         handlers = {
