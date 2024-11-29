@@ -11,8 +11,10 @@ vim.filetype.add({
     go = "go",
     h = function(path, bufnr)
       local first_line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, true);
-      if first_line:match('<iostream>') then
-        return "cpp"
+      for i = 1, #first_line do
+        if first_line[i]:match('<iostream>') then
+          return "cpp"
+        end
       end
       return "c"
     end,
