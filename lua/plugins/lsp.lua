@@ -24,7 +24,7 @@ return {
     },
     config = function()
       local kind_icons = {
-        Class = " ",
+        Class = " ",
         Color = " ",
         Constant = " ",
         Constructor = " ",
@@ -32,7 +32,7 @@ return {
         EnumMember = " ",
         Event = " ",
         Field = " ",
-        File = " ",
+        File = "󰈙 ",
         Folder = " ",
         Function = " ",
         Interface = " ",
