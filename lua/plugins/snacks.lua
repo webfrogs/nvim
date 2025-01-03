@@ -1,3 +1,4 @@
+-- https://github.com/folke/snacks.nvim
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -16,11 +17,11 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
-    styles = {
-      notification = {
-        -- wo = { wrap = true } -- Wrap notifications
-      }
-    }
+    -- styles = {
+    --   notification = {
+    --     -- wo = { wrap = true } -- Wrap notifications
+    --   }
+    -- }
   },
   keys = {
     { "<leader>z",  function() Snacks.zen() end,                     desc = "Toggle Zen Mode" },
