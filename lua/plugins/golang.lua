@@ -18,11 +18,14 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require("go").setup()
+      require("go").setup({
+        tag_transform = "camelcase",
+      })
     end,
     keys = {
-      { "<leader>gta", "<cmd>GoAddTest<cr>", "n", desc = "generate one test for current function/method" },
-      { "<leader>gie", "<cmd>GoIfErr<cr>",   "n", desc = "generate 'if error'" },
+      { "<leader>gat",  "<cmd>GoAddTest<cr>",     "n", desc = "generate one test for current function/method" },
+      { "<leader>gie",  "<cmd>GoIfErr<cr>",       "n", desc = "generate 'if error'" },
+      { "<leader>gsat", "<cmd>GoAddTag json<cr>", "n", desc = "generate go struct json tag with camelcase style" },
     },
     event = { "CmdlineEnter" },
     ft = { "go", 'gomod' },
