@@ -7,17 +7,17 @@ return {
     },
     config = function()
       vim.fn.sign_define("DapBreakpoint", {
-        text = "🔴",
+        text = "",
         texthl = "LspDiagnosticsSignError",
         linehl = "",
         numhl = "",
       })
-      vim.fn.sign_define("DapBreakpointRejected", {
-        text = "",
-        texthl = "LspDiagnosticsSignHint",
-        linehl = "",
-        numhl = "",
-      })
+      -- vim.fn.sign_define("DapBreakpointRejected", {
+      --   text = "",
+      --   texthl = "LspDiagnosticsSignHint",
+      --   linehl = "",
+      --   numhl = "",
+      -- })
 
       local dap, dapui = require('dap'), require('dapui')
       dapui.setup()
