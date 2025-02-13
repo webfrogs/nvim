@@ -1,16 +1,6 @@
 return {
-  -- {
-  --   "olexsmir/gopher.nvim",
-  --   ft = "go",
-  --   config = function(_, opts)
-  --     require("gopher").setup(opts)
-  --   end,
-  --   keys = {
-  --     { "<leader>gta", "<cmd>GoTestAdd<cr>", "n", desc = "generate one test for current function/method" },
-  --     { "<leader>gie", "<cmd>GoIfErr<cr>",   "n", desc = "generate 'if error'" },
-  --   },
-  -- },
   {
+    -- https://github.com/ray-x/go.nvim
     "ray-x/go.nvim",
     dependencies = { -- optional packages
       "ray-x/guihua.lua",

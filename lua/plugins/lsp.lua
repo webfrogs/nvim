@@ -1,8 +1,6 @@
--- mason: https://github.com/williamboman/mason.nvim
--- mason-lspconfig: https://github.com/williamboman/mason-lspconfig.nvim
--- blink: https://github.com/Saghen/blink.cmp
 return {
   {
+    -- mason: https://github.com/williamboman/mason.nvim
     'williamboman/mason.nvim',
     lazy = false,
     config = true,
@@ -22,6 +20,7 @@ return {
 
   -- Autocompletion
   {
+    -- blink: https://github.com/Saghen/blink.cmp
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = 'rafamadriz/friendly-snippets',
@@ -76,6 +75,7 @@ return {
     dependencies = {
       -- { 'hrsh7th/cmp-nvim-lsp' },
       { 'williamboman/mason.nvim' },
+      -- mason-lspconfig: https://github.com/williamboman/mason-lspconfig.nvim
       { 'williamboman/mason-lspconfig.nvim' },
       { 'saghen/blink.cmp' },
     },
