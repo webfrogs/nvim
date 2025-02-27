@@ -37,7 +37,15 @@ return {
     opts = {
       keymap = {
         preset = 'enter',
-        cmdline = {
+      },
+      cmdline = {
+        enabled = true,
+        completion = {
+          menu = {
+            auto_show = true,
+          },
+        },
+        keymap = {
           preset = 'default',
         },
       },
