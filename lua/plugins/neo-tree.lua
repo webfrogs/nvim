@@ -11,7 +11,18 @@ return {
   lazy = false, -- neo-tree will lazily load itself
   config = function()
     vim.keymap.set("n", "<leader>t", "<Cmd>Neotree<CR>")
+    vim.diagnostic.config({
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = '',
+          [vim.diagnostic.severity.WARN] = '',
+          [vim.diagnostic.severity.INFO] = '',
+          [vim.diagnostic.severity.HINT] = '󰌵',
+        },
+      }
+    })
     require("neo-tree").setup({
+      enable_diagnostics = true,
       window = {
         width = 30,
       },
