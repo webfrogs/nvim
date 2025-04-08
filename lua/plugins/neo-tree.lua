@@ -11,6 +11,7 @@ return {
   lazy = false, -- neo-tree will lazily load itself
   config = function()
     vim.keymap.set("n", "<leader>t", "<Cmd>Neotree<CR>")
+    vim.keymap.set("n", "<leader>o", "<Cmd>Neotree reveal<CR>")
     -- vim.diagnostic.config({
     --   signs = {
     --     error = { text = "✘", texthl = "DiagnosticError" }, -- 错误
