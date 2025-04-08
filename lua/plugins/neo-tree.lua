@@ -12,6 +12,7 @@ return {
   config = function()
     vim.keymap.set("n", "<leader>t", "<Cmd>Neotree<CR>")
     vim.keymap.set("n", "<leader>o", "<Cmd>Neotree reveal<CR>")
+    vim.keymap.set("n", "<leader>b", "<Cmd>Neotree source=buffers<CR>")
     -- vim.diagnostic.config({
     --   signs = {
     --     error = { text = "✘", texthl = "DiagnosticError" }, -- 错误
@@ -40,6 +41,13 @@ return {
       popup_border_style = "rounded",
       window = {
         width = 30,
+      },
+      filesystem = {
+        filtered_items = {
+          always_show = { -- remains visible even if other settings would normally hide it
+            ".gitignore",
+          },
+        },
       },
     })
   end,
