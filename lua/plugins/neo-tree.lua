@@ -43,6 +43,15 @@ return {
           },
         },
       },
+      event_handlers = {
+        {
+          event = "file_added",
+          handler = function(file_path)
+            -- open file after created
+            vim.cmd("edit " .. file_path)
+          end,
+        },
+      },
     })
   end,
 }
