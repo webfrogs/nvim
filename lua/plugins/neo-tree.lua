@@ -10,7 +10,7 @@ return {
   },
   lazy = false, -- neo-tree will lazily load itself
   config = function()
-    vim.keymap.set("n", "<leader>t", "<Cmd>Neotree<CR>")
+    vim.keymap.set("n", "<leader>t", "<Cmd>Neotree toggle<CR>")
     vim.keymap.set("n", "<leader>o", "<Cmd>Neotree reveal<CR>")
     vim.keymap.set("n", "<leader>b", "<Cmd>Neotree source=buffers<CR>")
 
@@ -52,6 +52,26 @@ return {
           end,
         },
       },
+    })
+
+    vim.api.nvim_create_autocmd("VimEnter", {
+      pattern = "*",
+      callback = function()
+        local project_root = vim.fn.expand('%:p')
+        if #project_root == 0 then
+          project_root = vim.fn.getcwd()
+        end
+        local directory = vim.fn.isdirectory(project_root) == 1
+        if directory then
+          -- open neotree if directory
+          require("neo-tree.command").execute({
+            action = "show",
+            -- position = "left",
+            -- toggle = true,
+            dir = project_root,
+          })
+        end
+      end,
     })
   end,
 }
