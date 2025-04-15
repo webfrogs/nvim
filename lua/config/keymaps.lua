@@ -3,14 +3,11 @@ local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- Editor
-if vim.loop.os_uname().sysname == "Darwin" or
-    vim.env.TERM == "xterm-ghostty" then
-  keymap("n", "<C-/>", ":CommentToggle<cr>", opts)
-  keymap("v", "<C-/>", ":CommentToggle<cr>", opts)
-else
-  keymap("n", "<C-_>", ":CommentToggle<cr>", opts)
-  keymap("v", "<C-_>", ":CommentToggle<cr>", opts)
-end
+keymap("n", "<C-/>", ":CommentToggle<cr>", opts)
+keymap("v", "<C-/>", ":CommentToggle<cr>", opts)
+keymap("n", "<C-_>", ":CommentToggle<cr>", opts)
+keymap("v", "<C-_>", ":CommentToggle<cr>", opts)
+
 keymap("n", "<leader>1", ":noh<cr>", opts)
 keymap("n", "<leader>2", ":cclose<cr>", opts)
 keymap("n", "<leader>3", ":tabclose<cr>", opts)

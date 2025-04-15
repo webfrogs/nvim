@@ -1,3 +1,4 @@
+-- https://github.com/terrortylor/nvim-comment
 return {
   "terrortylor/nvim-comment",
   config = function()
