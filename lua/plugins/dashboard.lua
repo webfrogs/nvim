@@ -25,7 +25,6 @@ return {
         dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
         dashboard.button("l", "  > Lazy", ":Lazy<CR>"),
         dashboard.button("m", "󰰐  > Mason", ":Mason<CR>"),
-        dashboard.button("c", "  > Config", ":e ~/.config/nvim<CR>"),
         dashboard.button("q", "󰅙  > Quit NVIM", ":qa<CR>"),
       }
 
@@ -37,10 +36,10 @@ return {
       -- dashboard.section.footer.val = footer()
 
       -- 设置选项
-      dashboard.opts.opts.noautocmd = true
+      -- dashboard.opts.opts.noautocmd = true
 
       -- 应用配置
-      alpha.setup(dashboard.opts)
+      alpha.setup(dashboard.config)
     end
   },
 }
