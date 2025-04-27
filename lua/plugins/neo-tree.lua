@@ -21,6 +21,7 @@ return {
         width = 30,
       },
       filesystem = {
+        use_libuv_file_watcher = true,
         filtered_items = {
           always_show = { -- remains visible even if other settings would normally hide it
             ".gitignore",
