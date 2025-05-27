@@ -88,26 +88,8 @@ return {
       { 'saghen/blink.cmp' },
     },
     config = function()
-      -- lsp_attach is where you enable features that only work
-      -- if there is a language server active in the file
-      local lsp_attach = function(_, bufnr)
-        local opts = { buffer = bufnr }
-
-        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-        vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-        vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-
-        -- vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-        -- vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-        -- vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        -- vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-      end
-
       require('mason-lspconfig').setup({
+        automatic_enable = true,
         ensure_installed = {
           "lua_ls",
           "rust_analyzer",
@@ -118,21 +100,44 @@ return {
           "pyright",
           "ts_ls",
         },
-        handlers = {
-          function(server_name)
-            local lspOpts = {}
-            lspOpts.on_attach = lsp_attach
-            local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
-            if require_ok then
-              lspOpts = vim.tbl_deep_extend('keep', lsp_custom_opts, lspOpts)
-              lspOpts.capabilities = require('blink.cmp').get_lsp_capabilities(lsp_custom_opts.capabilities)
-            else
-              lspOpts.capabilities = require('blink.cmp').get_lsp_capabilities({})
-            end
-            require('lspconfig')[server_name].setup(lspOpts)
-          end,
-        }
       })
+
+      vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+      vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+      vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+      vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+      vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+      vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
+      vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+      vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+      vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+
+
+      vim.lsp.config('*', {
+        on_init = function(client)
+          local server_name = client.name
+
+          local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
+          if require_ok then
+            client.config = vim.tbl_deep_extend('keep', lsp_custom_opts, client.config)
+          end
+        end,
+      })
+
+      -- require('mason-lspconfig').setup_handlers({
+      --   function(server_name)
+      --     local lspOpts = {}
+      --     lspOpts.on_attach = lsp_attach
+      --     local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
+      --     if require_ok then
+      --       lspOpts = vim.tbl_deep_extend('keep', lsp_custom_opts, lspOpts)
+      --       lspOpts.capabilities = require('blink.cmp').get_lsp_capabilities(lsp_custom_opts.capabilities)
+      --     else
+      --       lspOpts.capabilities = require('blink.cmp').get_lsp_capabilities({})
+      --     end
+      --     require('lspconfig')[server_name].setup(lspOpts)
+      --   end,
+      -- })
     end
   }
 }
