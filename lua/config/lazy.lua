@@ -33,4 +33,7 @@ require("lazy").setup({
     enable = false,
     notify = false,
   },
+  git = {
+    timeout = 600,
+  },
 })
