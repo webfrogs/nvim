@@ -50,29 +50,13 @@ return {
         {
           event = "file_added",
           handler = function(file_path)
-            -- open file after created
-            vim.cmd("edit " .. file_path)
+            if vim.fn.isdirectory(file_path) == 0 then
+              -- open file after created
+              vim.cmd("edit " .. file_path)
+            end
           end,
         },
       },
     })
-
-    -- vim.api.nvim_create_autocmd("VimEnter", {
-    --   pattern = "*",
-    --   callback = function()
-    --     local project_root = vim.fn.expand('%:p')
-    --     if #project_root == 0 then
-    --       project_root = vim.fn.getcwd()
-    --     end
-    --     local directory = vim.fn.isdirectory(project_root) == 1
-    --     if directory then
-    --       -- open neotree if directory
-    --       require("neo-tree.command").execute({
-    --         action = "show",
-    --         dir = project_root,
-    --       })
-    --     end
-    --   end,
-    -- })
   end,
 }
