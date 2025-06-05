@@ -116,28 +116,12 @@ return {
       vim.lsp.config('*', {
         on_init = function(client)
           local server_name = client.name
-
           local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
           if require_ok then
             client.config = vim.tbl_deep_extend('keep', lsp_custom_opts, client.config)
           end
         end,
       })
-
-      -- require('mason-lspconfig').setup_handlers({
-      --   function(server_name)
-      --     local lspOpts = {}
-      --     lspOpts.on_attach = lsp_attach
-      --     local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
-      --     if require_ok then
-      --       lspOpts = vim.tbl_deep_extend('keep', lsp_custom_opts, lspOpts)
-      --       lspOpts.capabilities = require('blink.cmp').get_lsp_capabilities(lsp_custom_opts.capabilities)
-      --     else
-      --       lspOpts.capabilities = require('blink.cmp').get_lsp_capabilities({})
-      --     end
-      --     require('lspconfig')[server_name].setup(lspOpts)
-      --   end,
-      -- })
     end
   }
 }
