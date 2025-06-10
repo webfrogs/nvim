@@ -27,6 +27,8 @@ return {
             ".gitignore",
             ".dockerignore",
             ".github",
+            ".envrc",
+            ".nvim.lua",
           },
         },
       },
