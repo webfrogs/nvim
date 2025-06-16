@@ -11,6 +11,7 @@ return {
     opts = {
       library = {
         "lazy.nvim",
+        vim.fn.stdpath("data") .. "/lazy/",
         -- See the configuration section for more details
         -- Load luvit types when the `vim.uv` word is found
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
@@ -118,7 +119,7 @@ return {
           local server_name = client.name
           local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
           if require_ok then
-            client.config = vim.tbl_deep_extend('keep', lsp_custom_opts, client.config)
+            client.config = vim.tbl_deep_extend('force', client.config, lsp_custom_opts)
           end
         end,
       })
