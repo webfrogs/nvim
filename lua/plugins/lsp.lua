@@ -100,6 +100,7 @@ return {
           -- "pylsp",
           "pyright",
           "ts_ls",
+          "bashls",
         },
       })
 
