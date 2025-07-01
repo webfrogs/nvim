@@ -1,11 +1,5 @@
 return {
   {
-    -- mason: https://github.com/williamboman/mason.nvim
-    'williamboman/mason.nvim',
-    lazy = false,
-    config = true,
-  },
-  {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     opts = {
@@ -82,28 +76,28 @@ return {
     cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      -- { 'hrsh7th/cmp-nvim-lsp' },
-      { 'williamboman/mason.nvim' },
+      -- mason: https://github.com/mason-org/mason.nvim
+      { "mason-org/mason.nvim", opts = {} },
       -- mason-lspconfig: https://github.com/williamboman/mason-lspconfig.nvim
-      { 'williamboman/mason-lspconfig.nvim' },
+      {
+        'mason-org/mason-lspconfig.nvim',
+        opts = {
+          ensure_installed = {
+            "lua_ls",
+            "rust_analyzer",
+            "gopls",
+            "golangci_lint_ls",
+            "clangd",
+            "pyright",
+            "ts_ls",
+            "bashls",
+            "buf_ls",
+          },
+        },
+      },
       { 'saghen/blink.cmp' },
     },
     config = function()
-      require('mason-lspconfig').setup({
-        automatic_enable = true,
-        ensure_installed = {
-          "lua_ls",
-          "rust_analyzer",
-          "gopls",
-          "golangci_lint_ls",
-          "clangd",
-          -- "pylsp",
-          "pyright",
-          "ts_ls",
-          "bashls",
-        },
-      })
-
       vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
       vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
       vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
@@ -114,16 +108,13 @@ return {
       vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
       vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 
-
-      vim.lsp.config('*', {
-        on_init = function(client)
-          local server_name = client.name
-          local require_ok, lsp_custom_opts = pcall(require, "config.lsp." .. server_name)
-          if require_ok then
-            client.config = vim.tbl_deep_extend('force', client.config, lsp_custom_opts)
-          end
-        end,
-      })
+      -- load custom lsp config
+      local custom_lsp_files = vim.fn.glob(vim.fn.stdpath("config") .. "/lua/config/lsp/*.lua", false, true)
+      for _, file in ipairs(custom_lsp_files) do
+        local module_path = file:gsub(".*/lua/(.*)%.lua$", "%1"):gsub("/", ".")
+        local lsp_name = module_path:match(".*%.(.*)$")
+        vim.lsp.config[lsp_name] = require(module_path)
+      end
     end
   }
 }
