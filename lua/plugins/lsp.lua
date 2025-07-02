@@ -98,15 +98,64 @@ return {
       { 'saghen/blink.cmp' },
     },
     config = function()
-      vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-      vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-      vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-      vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-      vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-      vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
-      vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-      vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-      vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+        callback = function(event)
+          -- folding
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client:supports_method('textDocument/foldingRange') then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+          end
+          -- Inlay hint
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+            -- vim.lsp.inlay_hint.enable()
+            vim.keymap.set('n', '<leader>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+            end, { buffer = event.buf, desc = 'LSP: Toggle Inlay Hints' })
+          end
+
+          -- -- Highlight words under cursor
+          -- if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) and vim.bo.filetype ~= 'bigfile' then
+          --   local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+          --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.document_highlight,
+          --   })
+
+          --   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+          --     buffer = event.buf,
+          --     group = highlight_augroup,
+          --     callback = vim.lsp.buf.clear_references,
+          --   })
+
+          --   vim.api.nvim_create_autocmd('LspDetach', {
+          --     group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+          --     callback = function(event2)
+          --       vim.lsp.buf.clear_references()
+          --       vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+          --       -- vim.cmd 'setl foldexpr <'
+          --     end,
+          --   })
+          -- end
+        end,
+      })
+
+      -- lsp keymap
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: hover' })
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = 'LSP: rename' })
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: definition' })
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP: declaration' })
+      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP: implementation' })
+      vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'LSP: open float' })
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP: references' })
+      vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { desc = 'LSP: signature help' })
+      vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'LSP: action' })
+      -- Diagnostics
+      vim.keymap.set('n', '<leader>ld', function()
+        vim.diagnostic.open_float { source = true }
+      end, { desc = 'LSP: Show Diagnostic' })
 
       -- load custom lsp config
       local custom_lsp_files = vim.fn.glob(vim.fn.stdpath("config") .. "/lua/config/lsp/*.lua", false, true)
