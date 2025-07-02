@@ -41,6 +41,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
+-- Custom foldtext
 -- Source: https://www.reddit.com/r/neovim/comments/1fzn1zt/custom_fold_text_function_with_treesitter_syntax/
 local function fold_virt_text(result, start_text, lnum)
   local text = ''
@@ -80,9 +81,10 @@ end
 vim.opt.foldtext = 'v:lua.custom_foldtext()'
 
 
+
 -- change floating window border to rounded
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = opts.border or 'rounded'
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
