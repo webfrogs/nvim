@@ -12,12 +12,6 @@ return {
         linehl = "",
         numhl = "",
       })
-      -- vim.fn.sign_define("DapBreakpointRejected", {
-      --   text = "",
-      --   texthl = "LspDiagnosticsSignHint",
-      --   linehl = "",
-      --   numhl = "",
-      -- })
 
       local dap, dapui = require('dap'), require('dapui')
       dapui.setup()

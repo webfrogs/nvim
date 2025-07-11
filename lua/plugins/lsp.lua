@@ -88,7 +88,7 @@ return {
             "gopls",
             "golangci_lint_ls",
             "clangd",
-            "pyright",
+            -- "pyright",
             "ts_ls",
             "bashls",
             "buf_ls",
