@@ -17,7 +17,7 @@ return {
   {
     "sindrets/diffview.nvim",
     config = function()
-      vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>DiffviewFileHistory %<cr>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<leader>gbf", "<cmd>DiffviewFileHistory %<cr>", { noremap = true, silent = true })
     end
   },
 }
