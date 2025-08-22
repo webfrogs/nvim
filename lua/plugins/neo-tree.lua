@@ -31,6 +31,7 @@ return {
             ".github",
             ".envrc",
             ".nvim.lua",
+            ".golangci.yml",
           },
         },
       },
