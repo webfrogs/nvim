@@ -6,7 +6,6 @@ local options = {
   fileencoding = "utf-8",                         -- the encoding written to a file
   hlsearch = true,                                -- highlight all matches on previous search pattern
   ignorecase = true,                              -- ignore case in search patterns
-  -- mouse = "a",                             -- allow the mouse to be used in neovim
   pumheight = 10,                                 -- pop up menu height
   smartcase = true,                               -- smart case
   smartindent = true,                             -- make indenting smarter again
