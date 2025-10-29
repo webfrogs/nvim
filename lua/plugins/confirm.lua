@@ -1,3 +1,4 @@
+-- https://github.com/stevearc/conform.nvim
 return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
@@ -11,7 +12,7 @@ return {
         -- Conform will run multiple formatters sequentially
         python = { "isort", "black" },
         -- Use a sub-list to run only the first available formatter
-        javascript = { { "prettierd", "prettier" } },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
