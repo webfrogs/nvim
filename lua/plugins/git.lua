@@ -14,10 +14,28 @@ return {
       virtual_text_column = 1, -- virtual text start column, check Start virtual text at column section for more options
     },
   },
+  -- {
+  --   "sindrets/diffview.nvim",
+  --   config = function()
+  --     vim.api.nvim_set_keymap("n", "<leader>gbf", "<cmd>DiffviewFileHistory %<cr>", { noremap = true, silent = true })
+  --   end
+  -- },
   {
-    "sindrets/diffview.nvim",
-    config = function()
-      vim.api.nvim_set_keymap("n", "<leader>gbf", "<cmd>DiffviewFileHistory %<cr>", { noremap = true, silent = true })
-    end
+    "NeogitOrg/neogit",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",  -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+
+      -- Only one of these is needed.
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua",              -- optional
+      "nvim-mini/mini.pick",           -- optional
+      "folke/snacks.nvim",             -- optional
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" }
+    }
   },
 }
