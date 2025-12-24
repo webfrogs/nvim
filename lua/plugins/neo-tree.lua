@@ -29,6 +29,7 @@ return {
             ".gitmodules",
             ".dockerignore",
             ".github",
+            ".env",
             ".envrc",
             ".nvim.lua",
             ".golangci.yml",
