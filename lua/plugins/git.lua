@@ -35,7 +35,8 @@ return {
     },
     cmd = "Neogit",
     keys = {
-      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" }
+      { "<leader>gg",  "<cmd>Neogit<cr>",                desc = "Show Neogit UI" },
+      { "<leader>gbf", "<cmd>DiffviewFileHistory %<cr>", desc = "Diff current file" },
     }
   },
 }
