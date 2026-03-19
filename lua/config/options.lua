@@ -39,6 +39,7 @@ local options = {
   diffopt = "vertical,filler,internal,context:4", -- vertical diff split view
   jumpoptions = "stack",
   exrc = true,
+  -- syntax = "off",
 }
 
 for k, v in pairs(options) do
