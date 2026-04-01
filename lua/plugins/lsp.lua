@@ -92,6 +92,7 @@ return {
             "ts_ls",
             "bashls",
             "buf_ls",
+            "autotools_ls",
           },
         },
       },
