@@ -56,12 +56,36 @@ return {
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { "lazydev", 'lsp', 'path', 'snippets', 'buffer' },
+        -- In Makefile, show buffer completions alongside LSP instead of only as fallback
+        per_filetype = {
+          make = { inherit_defaults = true, 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+        },
         providers = {
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             -- make lazydev completions top priority (see `:h blink.cmp`)
             score_offset = 100,
+          },
+          lsp = {
+            -- In Makefile: disable fallback so buffer source is always active alongside LSP.
+            -- In other filetypes: keep default behavior (fallback to buffer when LSP has no results).
+            fallbacks = function(ctx)
+              if vim.bo.filetype == 'make' then
+                return {}
+              end
+              return { 'buffer' }
+            end,
+          },
+          buffer = {
+            -- In Makefile: raise score to appear alongside LSP results.
+            -- In other filetypes: keep default low score (-3) so LSP takes priority.
+            score_offset = function(ctx)
+              if vim.bo.filetype == 'make' then
+                return 0
+              end
+              return -3
+            end,
           },
         },
       },
@@ -96,7 +120,6 @@ return {
           },
         },
       },
-      { 'saghen/blink.cmp' },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
