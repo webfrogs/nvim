@@ -11,7 +11,7 @@ return {
   lazy = false, -- neo-tree will lazily load itself
   config = function()
     vim.keymap.set("n", "<leader>t", "<Cmd>Neotree toggle<CR>")
-    vim.keymap.set("n", "<leader>o", "<Cmd>Neotree reveal<CR>")
+    vim.keymap.set("n", "<leader>o", "<Cmd>Neotree reveal_file=%:p<CR>")
     vim.keymap.set("n", "<leader>b", "<Cmd>Neotree source=buffers<CR>")
 
     require("neo-tree").setup({
