@@ -33,6 +33,7 @@ return {
             ".envrc",
             ".nvim.lua",
             ".golangci.yml",
+            ".zshrc",
           },
         },
       },
