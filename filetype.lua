@@ -18,22 +18,6 @@ vim.filetype.add({
       end
       return "c"
     end,
-    conf = function(path, _)
-      -- 获取当前文件所在目录的父目录（即上一级目录）
-      local parent_of_file_dir = vim.fn.fnamemodify(path, ':h:h')
-      -- 检查该父目录中是否存在 hyprland.conf
-      local hyprland_conf = vim.fn.join({ parent_of_file_dir, 'hyprland.conf' }, '/')
-      if vim.fn.filereadable(hyprland_conf) == 1 then
-        return "hyprlang"
-      end
-      -- 继续探测上一级路径
-      parent_of_file_dir = vim.fn.fnamemodify(parent_of_file_dir, ':h')
-      hyprland_conf = vim.fn.join({ parent_of_file_dir, 'hyprland.conf' }, '/')
-      if vim.fn.filereadable(hyprland_conf) == 1 then
-        return "hyprlang"
-      end
-      return "conf"
-    end,
   },
   filename = {
     [".git/config"] = "gitconfig",
