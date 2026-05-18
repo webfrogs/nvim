@@ -12,3 +12,6 @@ keymap("n", "<leader>p", "\"+p", opts)
 
 -- copy current file and cursor line to clipboard
 keymap("n", "<leader>l", ":let @+ = expand(\"%\") . \":\" . line(\".\")<CR>", opts)
+
+-- copy relative file path to clipboard
+keymap("n", "<leader>f", ":let @+ = fnamemodify(expand(\"%\"), \":.\")<CR>", opts)
