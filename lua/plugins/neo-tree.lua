@@ -33,6 +33,7 @@ return {
             ".nvim.lua",
             ".golangci.yml",
             ".zshrc",
+            ".clang-format",
           },
         },
       },
