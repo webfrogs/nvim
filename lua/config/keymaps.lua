@@ -15,4 +15,7 @@ keymap("n", "<leader>p", "\"+p", opts)
 keymap("n", "<leader>l", ":let @+ = expand(\"%\") . \":\" . line(\".\")<CR>", opts)
 
 -- copy relative file path to clipboard
-keymap("n", "<leader>f", ":let @+ = fnamemodify(expand(\"%\"), \":.\")<CR>", opts)
+vim.keymap.set("n", "<leader>f", function()
+  if vim.bo.filetype == "neo-tree" then return end
+  vim.fn.setreg("+", vim.fn.fnamemodify(vim.fn.expand("%"), ":."))
+end, opts)

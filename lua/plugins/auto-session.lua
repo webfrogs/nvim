@@ -17,9 +17,10 @@ return {
       end,
       -- trigger lsp and treesitter
       function()
-        vim.defer_fn(function()
-          vim.cmd("e!")
-        end, 300)
+        vim.cmd("e!")
+        -- vim.defer_fn(function()
+        --   vim.cmd("e!")
+        -- end, 300)
       end,
     },
   },
