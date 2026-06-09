@@ -24,8 +24,5 @@ return {
         vim.treesitter.start()
       end,
     })
-    -- vim.api.nvim_create_user_command('TSSync', function()
-    --   require 'nvim-treesitter'.install(support_langs)
-    -- end, {})
   end,
 }

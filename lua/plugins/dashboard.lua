@@ -28,16 +28,6 @@ return {
         dashboard.button("q", "󰅙  > Quit NVIM", ":qa<CR>"),
       }
 
-      -- 设置页脚
-      -- local function footer()
-      --   return "github.com/goolord/alpha-nvim"
-      -- end
-
-      -- dashboard.section.footer.val = footer()
-
-      -- 设置选项
-      -- dashboard.opts.opts.noautocmd = true
-
       -- 应用配置
       alpha.setup(dashboard.config)
     end
