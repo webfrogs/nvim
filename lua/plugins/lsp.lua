@@ -97,7 +97,7 @@ return {
   -- LSP
   {
     'neovim/nvim-lspconfig',
-    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart', 'LspRestart' },
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- mason: https://github.com/mason-org/mason.nvim
@@ -158,6 +158,24 @@ return {
       vim.keymap.set('n', '<leader>dl', function()
         vim.diagnostic.setloclist()
       end, { desc = 'list diagnostic loctions' })
+
+      vim.api.nvim_create_user_command('LspRestart', function()
+        local clients = vim.lsp.get_clients()
+        for _, client in ipairs(clients) do
+          client:stop()
+        end
+
+        vim.defer_fn(function()
+          for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buftype == '' then
+              vim.api.nvim_buf_call(bufnr, function()
+                vim.cmd('silent! edit')
+                vim.cmd('silent! LspStart')
+              end)
+            end
+          end
+        end, 500)
+      end, { desc = 'Restart all LSP clients' })
 
       -- load custom lsp config
       local custom_lsp_files = vim.fn.glob(vim.fn.stdpath("config") .. "/lua/config/lsp/*.lua", false, true)
