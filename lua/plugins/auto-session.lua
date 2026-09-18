@@ -10,10 +10,14 @@ return {
     suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
     -- log_level = 'debug',
     post_restore_cmds = {
-      -- open neotree and move cusor back to current file
+      -- Open Neo-tree without moving focus away from the restored window.
       function()
-        vim.cmd("Neotree reveal_file=" .. vim.fn.expand("%:p"))
-        vim.cmd("wincmd p")
+        local file = vim.api.nvim_buf_get_name(0)
+        local args = { action = "show", source = "filesystem" }
+        if vim.bo.buftype == "" and vim.fn.filereadable(file) == 1 then
+          args.reveal_file = file
+        end
+        require("neo-tree.command").execute(args)
       end,
       -- trigger lsp and treesitter
       function()
