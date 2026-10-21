@@ -34,6 +34,7 @@ return {
             ".golangci.yml",
             ".zshrc",
             ".clang-format",
+            ".agents",
           },
         },
       },
